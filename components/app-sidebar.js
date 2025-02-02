@@ -14,7 +14,7 @@ import Link from "next/link"
 
 const routes = [
     {
-        href: "",
+        href: "/",
         label: "Home",
         icon: Home,
     },
@@ -40,6 +40,7 @@ export function AppSidebar({ ...props }) {
     const activeRoute =
         routes.find((r) => r.href.length > 0 && pathName.includes(r.href)) ||
         routes[0];
+    console.log(">>> ~ AppSidebar ~ activeRoute:", activeRoute)
     return (
         <Sidebar {...props}>
             <SidebarHeader>
@@ -53,10 +54,11 @@ export function AppSidebar({ ...props }) {
                 <SidebarMenu>
                     {routes.map((item) => (
                         <SidebarMenuItem key={item.label}>
-                            <SidebarMenuButton isActive={activeRoute.href == item.href
-                            }>
-                                {item.icon && <item.icon />}
-                                <Link href={item.href}>{item.label}</Link>
+                            <SidebarMenuButton asChild isActive={activeRoute.href == item.href ? true : false}>
+                                <Link href={item.href}>
+                                    {item.icon && <item.icon />}
+                                    <span>{item.label}</span>
+                                </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     ))}
