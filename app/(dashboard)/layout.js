@@ -1,12 +1,13 @@
-import { AppSidebar } from "@/components/app-sidebar"
-import BreadcrumbHeader from "@/components/breadcrumb-header"
-import { ModeToggle } from "@/components/theme-toggle"
-import { Separator } from "@/components/ui/separator"
+import { AppSidebar } from "@/components/app-sidebar";
+import { ProfileAvatar } from "@/components/avatar";
+import BreadcrumbHeader from "@/components/breadcrumb-header";
+import { ModeToggle } from "@/components/theme-toggle";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export default function DashboardLayout({ children }) {
   return (
@@ -21,12 +22,10 @@ export default function DashboardLayout({ children }) {
             <BreadcrumbHeader />
             <ModeToggle />
           </div>
+          <ProfileAvatar />
         </header>
-        <div className="p-2">
-          {children}
-        </div>
-
+        <div className="p-2">{children}</div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }
