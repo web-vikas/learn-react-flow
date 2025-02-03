@@ -1,43 +1,24 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import { BriefcaseIcon } from "lucide-react";
-import { useState } from "react";
+import { Suspense } from "react";
+import CreateWorkflow from "./_components/create-workflow-dialog";
+import UserWorkflowSkelton from "./_components/skeltons/user-workflow-skelton";
+import UserWorkflow from "./_components/user-workflow";
 
-const WorkFlowPage = () => {
-  const [workflow, setWorkflow] = useState(true);
+const WorkFlowPage = async () => {
   return (
-    <Card className="w-full">
-      <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 p-4 sm:p-6">
-        <div>
-          <CardTitle className="text-xl sm:text-2xl">Workflows</CardTitle>
-          <CardDescription className="text-sm sm:text-base">
-            Manage your workflows
-          </CardDescription>
+    <div className="flex-1 flex flex-col h-full">
+      <div className="flex justify-between ">
+        <div className="flex flex-col">
+          <h1>Workflow</h1>
+          <p>Manage your Workflow</p>
         </div>
-        <Button>
-          Create Workflow
-        </Button>
-      </CardHeader>
-      <CardContent className="flex justify-center p-4 sm:p-6">
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-400 mb-4">
-            <BriefcaseIcon className="h-8 w-8 text-white" aria-hidden="true" />
-          </div>
-          <div>
-            <Button >
-              Create your first workflow
-            </Button>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        <CreateWorkflow />
+      </div>
+      <div className="h-full py-6">
+        <Suspense fallback={<UserWorkflowSkelton />}>
+          <UserWorkflow />
+        </Suspense>
+      </div>
+    </div>
   );
 };
 

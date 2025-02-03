@@ -27,7 +27,6 @@ model User {
   image          String?
   accounts       Account[]
   sessions       Session[]
-  role           UserRole?       @default(ADMIN)
   // Optional for WebAuthn support
   Authenticator  Authenticator[]
 
@@ -91,4 +90,17 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
+}
+
+model WorkFLow {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  name        String
+  description String?
+  definitions String
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, name])
 }
