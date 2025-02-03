@@ -37,10 +37,9 @@ const routes = [
 
 export function AppSidebar({ ...props }) {
     const pathName = usePathname();
+
     const activeRoute =
-        routes.find((r) => r.href.length > 0 && pathName.includes(r.href)) ||
-        routes[0];
-    console.log(">>> ~ AppSidebar ~ activeRoute:", activeRoute)
+        routes.find((r) => pathName === r.href) || routes[0]
     return (
         <Sidebar {...props}>
             <SidebarHeader>
