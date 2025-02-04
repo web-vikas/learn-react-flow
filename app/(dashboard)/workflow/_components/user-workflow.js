@@ -1,13 +1,25 @@
 import { GetWorkflowForUser } from "@/actions/workflow/workflow";
-import { BriefcaseIcon } from "lucide-react";
+import { AlertCircle, BriefcaseIcon } from "lucide-react";
 import CreateWorkflow from "./create-workflow-dialog";
 import {
   Card,
   CardContent
 } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import WorkflowCard from "./workflow-card";
 
 export default async function UserWorkflow() {
   const workflow = await GetWorkflowForUser();
+
+  if (!workflow)
+    return <Alert variant="destructive">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        Something went wrong. Please try again later 🥲
+      </AlertDescription>
+    </Alert>
+
   return (
     <div>
       {workflow.length === 0 ? (
@@ -31,16 +43,9 @@ export default async function UserWorkflow() {
           <div className="flex flex-col gap-4">
             {workflow.length > 0 &&
               workflow.map((item) => (
-                <Card key={item.id}>
-                  <div className="flex items-center justify-center">
-                    <CardContent>
-                      <h3>{item.name}</h3>
-                    </CardContent>
-                  </div>
-                </Card>
+                <WorkflowCard workflow={item} key={item.id} />
               ))}
           </div>
-          {/* <CreateWorkflow isTitle='Create a new workflow'/> */}
         </div>
       )}
     </div>
