@@ -36,3 +36,16 @@ export async function DeleteWorkflowById(id) {
   }
   return result;
 }
+export async function UpdateWorkflow(data) {
+  const session = await auth();
+  if (!session) throw new Error("No session");
+
+  const result = await db.WorkFLow.update({
+    where: { id: data.id },
+    data: data.values,
+  });
+  if (!result) {
+    throw new Error("Failed to delete workflow 🥲.");
+  }
+  return result;
+}
