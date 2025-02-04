@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +29,7 @@ import { CreateWorkflowApi } from "@/actions/workflow/workflow";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 // Define the schema using Zod
 
@@ -42,22 +43,27 @@ export default function CreateWorkflow({ isTitle }) {
       description: "",
     },
   });
-  const { formState } = form
-  const onSubmit = async (data) => {
-    try {
-      toast.loading("Creating workflow 🫸", { id: "create-workflow" });
-      const response = await CreateWorkflowApi(data);
-      if (response) {
-        toast.success("Workflow created successfully 😀", { id: "create-workflow" });
-        setIsOpen(false);
-        form.reset();
-        router.push(`/workflow/editor/${response.id}`)
-
-      }
-    } catch (error) {
-      toast.error("Failed to create workflow 🥲", { id: "create-workflow" });
+  const { mutate, isPending } = useMutation({
+    mutationFn: CreateWorkflowApi,
+    onError: (error) => {
+      toast.error("Failed to create workflow 🥲", { id: "create-workflow" })
+    },
+    onSuccess: (data) => {
+      toast.success("Workflow has been created 😀", { id: "create-workflow" })
+      setIsOpen(false)
+      form.reset()
+      router.push(`/workflow/editor/${data.id}`)
     }
-  };
+
+  })
+
+  const onSubmit = useCallback((values) => {
+    toast.loading("Creating workflow 🫸", {
+      id: "create-workflow"
+    })
+    mutate(values)
+  }, [mutate])
+
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -103,8 +109,8 @@ export default function CreateWorkflow({ isTitle }) {
             />
             <DialogFooter>
 
-              <Button type="submit" disabled={formState.isLoading}>
-                {formState.isLoading ? <Loader2 className="animate-spin" /> : "Proceed"}
+              <Button type="submit" disabled={isPending}>
+                {isPending ? <Loader2 className="animate-spin" /> : "Proceed"}
               </Button>
             </DialogFooter>
           </form>

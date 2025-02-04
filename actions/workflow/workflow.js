@@ -1,5 +1,4 @@
-"use server";
-
+"use server"
 import { auth } from "@/auth";
 import { WorkflowStatus } from "@/constants/workflow";
 import { db } from "@/lib/prisma";
@@ -7,7 +6,7 @@ export async function CreateWorkflowApi(data) {
   const session = await auth();
   if (!session) throw new Error("No session");
 
-  return await db.WorkFLow.create({
+  const result = await db.WorkFLow.create({
     data: {
       userId: session.user.id,
       name: data.name,
@@ -16,6 +15,10 @@ export async function CreateWorkflowApi(data) {
       status: WorkflowStatus.DRAFT,
     },
   });
+  if (!result) {
+    throw new Error("Failed to create workflow 🥲.");
+  }
+  return result
 }
 export async function GetWorkflowForUser() {
   const session = await auth();

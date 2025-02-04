@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import CreateWorkflow from "./_components/create-workflow-dialog";
-import UserWorkflowSkelton from "./_components/skeltons/user-workflow-skelton";
+import UserWorkflowSkelton from "./_components/skeletons/user-workflow-skelton";
 import UserWorkflow from "./_components/user-workflow";
 
 const WorkFlowPage = async () => {
