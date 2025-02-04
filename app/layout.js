@@ -1,6 +1,7 @@
-import { Geist, Geist_Mono, Inter, Roboto } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,6 +12,7 @@ export const metadata = {
   title: "Flow Scrape",
   description: "Flow Scrape By Youtube",
 };
+
 
 export default function RootLayout({ children }) {
   return (
@@ -23,8 +25,8 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
           enableSystem
         >
-
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

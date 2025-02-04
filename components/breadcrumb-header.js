@@ -6,6 +6,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 const BreadcrumbHeader = () => {
@@ -17,13 +19,24 @@ const BreadcrumbHeader = () => {
         <BreadcrumbList>
           {paths.map((path, index) => (
             <React.Fragment key={index}>
-              <BreadcrumbItem>
-                <BreadcrumbLink className="capitalize" href={`/${path}`}>
-                  {path === "" ? "home" : path}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
+              {index == paths.length - 1 ?
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="capitalize">
+                    {path === "" ? "home" : path}
+                  </BreadcrumbPage>
+                </BreadcrumbItem> :
+                <React.Fragment>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink className="capitalize" href={`/${path}`}>
+                      {path === "" ? "home" : path}
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                </React.Fragment>
+              }
             </React.Fragment>
           ))}
+
         </BreadcrumbList>
       </Breadcrumb>
     </div>

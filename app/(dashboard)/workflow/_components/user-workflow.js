@@ -1,18 +1,13 @@
 import { GetWorkflowForUser } from "@/actions/workflow/workflow";
-import { waitFor } from "@/lib/watiFor";
 import { BriefcaseIcon } from "lucide-react";
 import CreateWorkflow from "./create-workflow-dialog";
 import {
   Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
+  CardContent
 } from "@/components/ui/card";
 
 export default async function UserWorkflow() {
   const workflow = await GetWorkflowForUser();
-  console.log(workflow);
-  await waitFor(3000);
   return (
     <div>
       {workflow.length === 0 ? (
@@ -36,7 +31,7 @@ export default async function UserWorkflow() {
           <div className="flex flex-col gap-4">
             {workflow.length > 0 &&
               workflow.map((item) => (
-                <Card key={item._id}>
+                <Card key={item.id}>
                   <div className="flex items-center justify-center">
                     <CardContent>
                       <h3>{item.name}</h3>

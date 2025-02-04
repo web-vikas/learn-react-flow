@@ -4,7 +4,7 @@ import React from 'react'
 const HomePage = async () => {
     const session = await auth()
     return (
-        <pre>{JSON.stringify(session, null, 10)}</pre>
+        <code>{JSON.stringify(session, null, 10)}</code>
     )
 }
 

@@ -27,12 +27,14 @@ import { createWorkflowSchema } from "@/schema";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateWorkflowApi } from "@/actions/workflow/workflow";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Define the schema using Zod
 
 export default function CreateWorkflow({ isTitle }) {
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(createWorkflowSchema),
     defaultValues: {
@@ -40,16 +42,20 @@ export default function CreateWorkflow({ isTitle }) {
       description: "",
     },
   });
-
+  const { formState } = form
   const onSubmit = async (data) => {
     try {
+      toast.loading("Creating workflow 🫸", { id: "create-workflow" });
       const response = await CreateWorkflowApi(data);
       if (response) {
-        toast.success("Workflow created successfully!");
+        toast.success("Workflow created successfully 😀", { id: "create-workflow" });
         setIsOpen(false);
+        form.reset();
+        router.push(`/workflow/editor/${response.id}`)
+
       }
     } catch (error) {
-      toast.error("something want wrong");
+      toast.error("Failed to create workflow 🥲", { id: "create-workflow" });
     }
   };
 
@@ -96,7 +102,10 @@ export default function CreateWorkflow({ isTitle }) {
               )}
             />
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
+
+              <Button type="submit" disabled={formState.isLoading}>
+                {formState.isLoading ? <Loader2 className="animate-spin" /> : "Proceed"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>
