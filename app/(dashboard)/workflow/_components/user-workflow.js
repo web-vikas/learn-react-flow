@@ -1,10 +1,6 @@
 import { GetWorkflowForUser } from "@/actions/workflow/workflow";
 import { AlertCircle, BriefcaseIcon } from "lucide-react";
 import CreateWorkflow from "./create-workflow-dialog";
-import {
-  Card,
-  CardContent
-} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import WorkflowCard from "./workflow-card";
 
@@ -39,7 +35,7 @@ export default async function UserWorkflow() {
           </div>
         </>
       ) : (
-        <div>
+        <div >
           <div className="flex flex-col gap-4">
             {workflow.length > 0 &&
               workflow.map((item) => (
