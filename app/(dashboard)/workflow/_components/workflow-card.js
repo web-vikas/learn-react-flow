@@ -51,7 +51,7 @@ const WorkflowCard = ({ workflow }) => {
                     >
                         <PenBoxIcon size={16} /> Edit
                     </Link>
-                    <WorkflowAction />
+                    <WorkflowAction id={workflow.id}/>
                 </div>
             </CardContent>
         </Card>
