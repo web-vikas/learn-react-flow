@@ -49,5 +49,6 @@ export async function UpdateWorkflow(data) {
   if (!result) {
     throw new Error("Failed to delete workflow 🥲.");
   }
+  revalidatePath('/workflow')
   return result;
 }

@@ -50,7 +50,7 @@ export default function EditWorkflow({ data }) {
       toast.success("Workflow has been updated 😀", { id: "update-workflow" });
       setIsOpen(false);
       form.reset();
-      router.refresh();
+      // router.refresh();
     },
   });
 
