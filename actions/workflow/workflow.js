@@ -2,6 +2,7 @@
 import { auth } from "@/auth";
 import { WorkflowStatus } from "@/constants/workflow";
 import { db } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 export async function CreateWorkflowApi(data) {
   const session = await auth();
   if (!session) throw new Error("No session");
@@ -34,6 +35,7 @@ export async function DeleteWorkflowById(id) {
   if (!result) {
     throw new Error("Failed to delete workflow 🥲.");
   }
+  revalidatePath('/workflow')
   return result;
 }
 export async function UpdateWorkflow(data) {

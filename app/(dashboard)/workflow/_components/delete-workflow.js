@@ -17,7 +17,7 @@ export default function DeleteWorkflow({ handleDeleteWorkflow }) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          variant="outline"
+          variant="destructive"
           className="w-full gap-2"
           aria-label="Delete Workflow"
         >
