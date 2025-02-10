@@ -11,3 +11,7 @@ export const WorkflowStatusColors = {
 export const TaskType = {
     LAUNCH_BROWSER: "LAUNCH_BROWSER",
 }
+
+export const TaskParamsType = {
+    STRING: "STRING"
+}
